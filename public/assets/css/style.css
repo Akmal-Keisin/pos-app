@@ -1,0 +1,20 @@
+.row .card {
+    height: 26em;
+    overflow: hidden;
+}
+
+.table .description {
+    width: 30em;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card .card-body .description{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
