@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MoneyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,8 @@ Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart/{cart}', [CartController::class, 'store']);
 Route::put('/cart/{cart}', [CartController::class, 'update']);
 Route::delete('/cart/{cart}', [CartController::class, 'destroy']);
+
+// Money
+Route::get('/money', [MoneyController::class, 'index']);
+Route::post('/money', [MoneyController::class, 'store']);
 
