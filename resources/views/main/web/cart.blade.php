@@ -46,7 +46,11 @@
                         </td>
                         <td>{{ $cart['cost'] }}</td>
                         <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <form action="/cart/{{ $cart['row_id'] }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

@@ -9,15 +9,20 @@ use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    // Index Cart
     public function index() {
-        // session()->forget('cart');
+        // Get all session data
         $carts = session()->get('cart');
+
+        // Checking if there is carts in the session
         if($carts) {
+            // Setting the cost total
             $cost_total = 0;
             foreach ($carts as $cart) {
                 $cost_total += $cart['cost'];
             }
         }
+        // Set cost total to 0 when there's no carts in session
         else {
             $cost_total = 0;
         }
@@ -27,11 +32,13 @@ class CartController extends Controller
         ]);
     }
 
+    // Store function cart
     public function store(Request $request, $cart) {
         $request->validate([
             'qty' => 'required|numeric'
         ]);
 
+        // Check is product has been in the cart or not
         $product = Product::findOrFail($cart);
         if (session('cart')) {
             foreach (session()->get('cart') as $cart_data) {
@@ -41,6 +48,7 @@ class CartController extends Controller
             }
         }
 
+        // Storing data to variable
         $cost = $request->qty * $product->price;
         $data = collect([
             'row_id' => Str::random(20),
@@ -50,30 +58,52 @@ class CartController extends Controller
             'cost' => $cost
         ]);
 
+        // Store variable data to session cart
         session()->push('cart', $data);
         return redirect('/cart');
     }
 
+    // Edit function cart
     public function update(Request $request, $cart) {
         $request->validate([
             'qty' => 'required|numeric'
         ]);
 
+        // Find cart data with looping the cart session
         $carts = Session::get('cart', []);
         foreach ($carts as $cart_data) {
+            // Checking is the cart data same with given id or not
             if ($cart_data['row_id'] == $cart) {
+                // Updating cart data
                 $cart_data['qty'] = $request->qty;
                 $cart_data['cost'] = $cart_data['qty'] * $cart_data['price'];
             }
         }
 
+        // Save the data to session
         session()->put('cart', $carts);
         return redirect('/cart')->with('success', 'Cart updated successfully');
 
     }
 
+    // Delete function cart
     public function destroy($cart) {
+        // Looping the indexed array of session
+        $carts = session()->get('cart');
+        for($i = 0; $i <= count($carts); $i++) {
+            // Checking is the id same with given id or not
+            if ($carts[$i]['row_id'] == $cart) {
+                // Delete the data
+                unset($carts[$i]);
+            }
+        }
 
+        // Reseting the indexed array in session
+        $new_carts = array_values($carts);
+
+        // Storing new data session
+        session()->put('cart', $new_carts);
+        return redirect('/cart')->with('success', 'Cart deleted successfully');
     }
 
 }
