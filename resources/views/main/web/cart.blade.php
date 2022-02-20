@@ -4,6 +4,12 @@
 <div class="container">
     <h1 class="mt-5">Cart</h1>
     <div class="row mt-2">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+            {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="col-md-8">
             <table class="table table-stripped">
                 <thead>
@@ -12,21 +18,47 @@
                         <th scope="col">Product</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Cost</th>
+                        <th scope="col" class="price">Cost</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="align-middle">
+                    @if (!$carts)
+                    <tr>
+                        <td colspan="6" class="text-center fw-light text-secondary"> Cart Is Empty</td>
+                    </tr>
+                    @else
                     @foreach ($carts as $cart)
                     <tr>
+                        <form action="/"></form>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $cart['product_name'] }}</td>
                         <td>{{ $cart['price'] }}</td>
-                        <td>{{ $cart['qty'] }}</td>
+                        <td>
+                            <form action="/cart/{{ $cart['row_id'] }}" class="d-flex" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="input-group">
+                                    <input class="form-control" type="number" value="{{ $cart['qty'] }}" name="qty">
+                                    <button class="btn btn-outline-warning">Edit</button>
+                                </div>
+                            </form>
+                        </td>
                         <td>{{ $cart['cost'] }}</td>
+                        <td>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                        </td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
+        </div>
+        <div class="col-md-4">
+            <div class="ms-4">
+                <h2 class="">Cost Total :</h2>
+                <h2 class="fw-light">Rp. @convert($cost_total)</h2>
+            </div>
         </div>
     </div>
 </div>

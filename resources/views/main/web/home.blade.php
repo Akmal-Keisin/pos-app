@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row mt-5">
+        @if ($products->isEmpty())
+        <h1 class="text-center">Product Not Found</h1>
+        @endif
         @foreach ($products as $product)
         <div class="col-md-3">
             <div class="card">

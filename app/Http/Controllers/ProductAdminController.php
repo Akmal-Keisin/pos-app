@@ -17,6 +17,9 @@ class ProductAdminController extends Controller
     public function index()
     {
         $products = Product::all();
+        if (request('search')) {
+            $products = Product::where('product_name', 'like' , '%' .  request('search') . '%')->get();
+        }
         return view('admin.web.dashboard', [
             'products' => $products
         ]);

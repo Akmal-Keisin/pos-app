@@ -18,18 +18,24 @@ use App\Http\Controllers\MainController;
 |
 */
 
-// Admin Crud Product
-Route::resource('/admin', ProductAdminController::class)->middleware('auth');
+Route::middleware(['auth'])->group(function() {
+    // Admin Crud Product
+    Route::resource('/admin', ProductAdminController::class)->middleware('auth');
 
-// Category
-Route::post('/category', [CategoryController::class, 'store']);
-Route::get('/category/create', [CategoryController::class, 'create']);
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/category/{category}', [CategoryController::class, 'show']);
+    // Category
+    Route::post('/category', [CategoryController::class, 'store']);
+    Route::get('/category/create', [CategoryController::class, 'create']);
+    Route::get('/category', [CategoryController::class, 'index']);
+    Route::get('/category/{category}', [CategoryController::class, 'show']);
 
-// Main
-Route::get('/home', [MainController::class, 'index']);
-Route::get('/home/{product}', [MainController::class, 'show']);
+    // Main
+    Route::get('/', function() {
+        return redirect('/home');
+    });
+    Route::get('/home', [MainController::class, 'index']);
+    Route::get('/home/{product}', [MainController::class, 'show']);
+});
+
 
 // Login
 Route::get('/login', [AuthController::class, 'loginIndex'])->name('login');
@@ -43,3 +49,6 @@ Route::post('/register', [AuthController::class, 'registerCreate']);
 // Cart
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart/{cart}', [CartController::class, 'store']);
+Route::put('/cart/{cart}', [CartController::class, 'update']);
+Route::delete('/cart/{cart}', [CartController::class, 'destroy']);
+

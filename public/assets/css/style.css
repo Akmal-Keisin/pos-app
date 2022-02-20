@@ -3,15 +3,11 @@
     overflow: hidden;
 }
 
-.table .description {
-    width: 30em;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+table .price {
+    width: 15em;
 }
 
-.card .card-body .description{
+.card .card-body .description {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

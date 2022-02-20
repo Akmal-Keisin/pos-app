@@ -9,6 +9,9 @@ class MainController extends Controller
 {
     public function index() {
         $products = Product::all();
+        if (request('search')) {
+            $products = Product::where('product_name', 'like' , '%' .  request('search') . '%')->get();
+        }
         return view('main.web.home', [
             'products' => $products
         ]);

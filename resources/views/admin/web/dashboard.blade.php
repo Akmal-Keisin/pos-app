@@ -9,24 +9,24 @@
         </div>
     </div>
     @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
-            {{ $message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+    <div class="alert alert-success alert-dismissible fade show my-3" role="alert">
+        {{ $message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     @endif
     <table class="table">
         <thead class="align-middle">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" style="width: 10em">Image</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Category</th>
-            <th scope="col" style="width:30em">Description</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Price</th>
-            <th scope="col">Profit</th>
-            <th scope="col">Action</th>
-          </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" style="width: 10em">Image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Category</th>
+                <th scope="col" style="width:30em">Description</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Price</th>
+                <th scope="col">Profit</th>
+                <th scope="col">Action</th>
+            </tr>
         </thead>
         <tbody class="align-middle">
             @foreach ($products as $product)
@@ -35,7 +35,7 @@
                 <td><img class="img-thumbnail img-fluid" src="{{ $product->image }}" alt="{{ $product->image }}"></td>
                 <td>{{ $product->product_name }}</td>
                 <td>{{ $product->category->category_name}}</td>
-                <td class="description" style="text-overflow: e">{{ $product->product_description }}</td>
+                <td>{{ Str::limit($product->product_description, 100, '...')  }}</td>
                 <td>{{ $product->stock }}</td>
                 <td>{{ $product->price }}</td>
                 <td>{{ $product->profit }}</td>
@@ -44,7 +44,8 @@
                         @method('DELETE')
                         @csrf
                         <a href="admin/{{ $product->id }}/edit" class="btn btn-warning">Edit</a>
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are You Sure?')">Delete</button>
+                        <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are You Sure?')">Delete</button>
                     </form>
                 </td>
             </tr>
