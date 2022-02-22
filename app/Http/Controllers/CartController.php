@@ -12,8 +12,9 @@ class CartController extends Controller
     // Index Cart
     public function index() {
         // Get all session data
+        // session()->forget('cart');
         $carts = session()->get('cart');
-
+        // dd($carts);
         // Checking if there is carts in the session
         if($carts) {
             // Setting the cost total
@@ -52,9 +53,11 @@ class CartController extends Controller
         $cost = $request->qty * $product->price;
         $data = collect([
             'row_id' => Str::random(20),
+            'product_id' => $product->id,
             'product_name' => $product->product_name,
             'price' => $product->price,
             'qty' => $request->qty,
+            'profit' => $product->profit,
             'cost' => $cost
         ]);
 

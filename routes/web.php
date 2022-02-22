@@ -7,6 +7,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MoneyController;
+use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +59,5 @@ Route::delete('/cart/{cart}', [CartController::class, 'destroy']);
 Route::get('/money', [MoneyController::class, 'index']);
 Route::post('/money', [MoneyController::class, 'store']);
 
+// Transaction
+Route::post('/checkout', [TransactionController::class, 'store']);

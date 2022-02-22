@@ -63,6 +63,16 @@
                 <h2 class="">Cost Total :</h2>
                 <h2 class="fw-light">Rp. @convert($cost_total)</h2>
             </div>
+            <div class="ms-4 mt-3">
+                <h2>Address</h2>
+                <h5 class="fw-light">{{ Auth::user()->address }}</h5>
+            </div>
+            <div class="ms-4 mt-3">
+                <form action="/checkout" method="POST">
+                    @csrf
+                    <button class="btn btn-primary">Checkout</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
