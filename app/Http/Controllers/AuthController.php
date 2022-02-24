@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin');
+            return redirect()->intended('/home');
         }
 
         return back()->with('failed', 'Email or password wrong');

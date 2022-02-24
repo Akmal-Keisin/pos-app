@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Modal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,8 +62,18 @@ class ProductAdminController extends Controller
             $validatedData['image'] = $request->file('image')->store('images');
         };
 
+
         $validatedData['category_id'] = $validatedData['category'];
         Product::create($validatedData);
+
+        $product = Product::latest()->first();
+
+        $modal = new Modal();
+        $modal->product_id = $product->id;
+        $modal->stock = $product->stock;
+        $modal->cost = ($product->price - $product->profit) * $product->stock;
+        $modal->save();
+
 
         return redirect('/admin')->with('success', 'Product created successfully');
     }

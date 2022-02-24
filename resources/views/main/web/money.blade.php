@@ -35,6 +35,28 @@
                                 autocomplete="off">
                             <label class="btn btn-outline-primary" for="100000">Rp. 100.000,00</label>
                         </div>
+                    </div>
+                    <div class="row mt-3 justify-content-center">
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <input type="radio" class="btn-check" name="money" value="500000" id="500000"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="500000">Rp. 500.000,00</label>
+                        </div>
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <input type="radio" class="btn-check" name="money" value="1000000" id="1000000"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="1000000">Rp. 1.000.000,00</label>
+                        </div>
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <input type="radio" class="btn-check" name="money" value="5000000" id="5000000"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="5000000">Rp. 5.000.000,00</label>
+                        </div>
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <input type="radio" class="btn-check" name="money" value="10000000" id="10000000"
+                                autocomplete="off">
+                            <label class="btn btn-outline-primary" for="10000000">Rp. 10.000.000,00</label>
+                        </div>
                         <div class="col-sm-3">
                             <div class="mt-3 d-flex justify-content-center">
                                 <button class="btn btn-primary" type="submit">Top Up!</button>

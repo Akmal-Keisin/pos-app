@@ -8,7 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MoneyController;
 use App\Http\Controllers\TransactionController;
-use App\Models\Transaction;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ use App\Models\Transaction;
 
 Route::middleware(['auth'])->group(function() {
     // Admin Crud Product
-    Route::resource('/admin', ProductAdminController::class)->middleware('auth');
+    Route::resource('/admin', ProductAdminController::class);
 
     // Category
     Route::post('/category', [CategoryController::class, 'store']);
@@ -60,4 +60,8 @@ Route::get('/money', [MoneyController::class, 'index']);
 Route::post('/money', [MoneyController::class, 'store']);
 
 // Transaction
+Route::get('/transaction', [TransactionController::class, 'index']);
 Route::post('/checkout', [TransactionController::class, 'store']);
+
+// Report
+Route::get('/report', [ReportController::class, 'index']);
