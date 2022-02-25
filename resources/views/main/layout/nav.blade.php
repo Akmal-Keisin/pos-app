@@ -8,16 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/home">Home</a>
+                    <a class="nav-link {{ Request::is('home') ? 'active' : '' }}" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/category">Category</a>
+                    <a class="nav-link {{ Request::is('category') ? 'active' : '' }}" href="/category">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link {{ Request::is('cart') ? 'active' : '' }}" href="/cart">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/money">Money</a>
+                    <a class="nav-link {{ Request::is('money') ? 'active' : '' }}" href="/money">Money</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('member') ? 'active' : '' }}" href="/member">Member Service</a>
                 </li>
             </ul>
             <form class="d-flex">

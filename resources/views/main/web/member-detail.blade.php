@@ -18,14 +18,13 @@
         @endif
         <div class="col-md-4">
             <img class="img-fluid" src="{{ asset($product->image) }}" alt="">
-            <h3 class="mt-4">Your Money :<br> Rp. @convert($money)</h3>
+            <h3 class="mt-4">Your Point : {{ $member->point }}Pt</h3>
         </div>
         <div class="col-md-6">
-            <form action="/cart/{{ $product->id }}" method="POST">
+            <form action="/exchange" method="POST">
                 @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <h1>{{ $product->product_name }}</h1>
-                <p><a class="text-decoration-none"
-                        href="/category/{{ $product->category->id }}">{{ $product->category->category_name }}</a></p>
                 <div class="mb-3">
                     <h6 class="fw-bold">Description :</h6>
                     <p>{{ $product->product_description }}</p>
@@ -36,11 +35,7 @@
                 </div>
                 <div class="mb-3">
                     <h6 class="fw-bold">Price :</h6>
-                    <p>Rp. @convert($product->price)</p>
-                </div>
-                <div class="mb-3">
-                    <h6 class="fw-bold">Get Member Point :</h6>
-                    <p>{{ $product->member_point }}Pt</p>
+                    <p>{{ $product->point }}Pt</p>
                 </div>
                 <div class="mb-3" style="width: 20%">
                     <label for="">
@@ -48,7 +43,7 @@
                     </label>
                     <input type="number" class="form-control" name="qty">
                 </div>
-                <button class="btn btn-primary" type="submit">Add To Cart</button>
+                <button class="btn btn-primary" type="submit">Exchange</button>
             </form>
         </div>
     </div>

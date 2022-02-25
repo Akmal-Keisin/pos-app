@@ -18,7 +18,7 @@
                     <p class="description">{{ $product->product_description }}</p>
                     <div class="d-flex justify-content-between align-items-center ">
                         <p><a class="btn btn-primary" href="/home/{{ $product->id }}">More</a></p>
-                        <p class="text-primary">@convert($product->price)</p>
+                        <p class="text-primary">Rp. @convert($product->price)</p>
                     </div>
                 </div>
             </div>

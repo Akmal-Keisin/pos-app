@@ -41,6 +41,10 @@ class CartController extends Controller
 
         // Check is product has been in the cart or not
         $product = Product::findOrFail($cart);
+        if($request->qty > $product->stock) {
+            return back()->with('failed', 'Stock is not enough');
+        }
+
         if (session('cart')) {
             foreach (session()->get('cart') as $cart_data) {
                 if ($cart_data['product_name'] === $product->product_name) {

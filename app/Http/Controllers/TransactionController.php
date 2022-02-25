@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Member;
 use App\Models\Product;
 use App\Models\Transaction;
 
@@ -24,14 +27,25 @@ class TransactionController extends Controller
         if(isEmpty($request->session('cart') == false)) {
             $total_cost = 0;
             $profit = 0;
+            $point = 0;
             foreach (session()->get('cart') as $data) {
                 $total_cost += $data['cost'];
                 $product = Product::findOrFail($data['product_id']);
+                if ($product->stock < $data['qty']) {
+                    return back()->with('failed', 'Product stock is not enough');
+                }
                 $profit += $product->profit * $data['qty'];
+                $point += $product->member_point * $data['qty'];
             }
 
             if(Auth::user()->money < $total_cost) {
                 return back()->with('failed', 'Your money is not enough for the transaction');
+            }
+
+            if(Member::where('user_id', '=', Auth::user()->id)->exists()) {
+                $member = (Member::where('user_id', '=', Auth::user()->id)->first());
+                $member->point = $member->point + $point;
+                $member->save();
             }
 
             // creating the transaction data
@@ -66,11 +80,29 @@ class TransactionController extends Controller
             $user->money = $user->money - $total_cost;
             $user->save();
 
-
+            $orders = Order::where('transaction_id', '=', $transaction_id)->get();
+            $transactions = Transaction::where('id', '=', $transaction_id)->first();
+            $pdf = PDF::loadView('main.web.receipt',[
+                'orders' => $orders,
+                'transactions' => $transactions,
+                'date' => Carbon::today()->toFormattedDateString()
+            ]);
             session()->forget('cart');
-            return back()->with('success', 'checkout successfully');
+            return $pdf->download();
+            // return view('main.web.receipt', [
+            //     'orders' => $orders,
+            //     'transactions' => $transactions,
+            //     'date' => Carbon::today()->toFormattedDateString()
+            // ]);
         }
 
 
+    }
+
+    public function show($transaction) {
+        $transactions = Order::where('transaction_id', $transaction)->get();
+        return view('admin.web.transaction_detail', [
+            'transactions' => $transactions
+        ]);
     }
 }

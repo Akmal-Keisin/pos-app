@@ -14,7 +14,7 @@
         <h1 class="text-center">Add Product</h1>
 
         {{-- Form --}}
-        <form action="/admin" method="POST" class="col-md-5 mb-5" enctype="multipart/form-data">
+        <form action="/member_admin" method="POST" class="col-md-5 mb-5" enctype="multipart/form-data">
             @csrf
             {{-- Product Name --}}
             <div class="mb-3">
@@ -28,21 +28,6 @@
                 <input type="file" class="form-control" id="image" name="image" placeholder="Product Name Here"
                     value="{{ old('image') }}">
             </div>
-            {{-- Category --}}
-            <div class="mb-3">
-                <label class="form-label">Product Category :</label>
-                <div class="input-group">
-                    <select class="form-select" name="category">
-                        @if (old('category_id'))
-                        <option value="{{ old('category_id') }}" selected>{{ old('category_id') }}</option>
-                        @endif
-                        @foreach ($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                        @endforeach
-                    </select>
-                    <a href="/category/create" class="d-inline btn btn-primary">add</a>
-                </div>
-            </div>
             {{-- Description --}}
             <div class="mb-3">
                 <label for="product_description" class="form-label">Product Description :</label>
@@ -55,22 +40,11 @@
                 <input type="number" id="stock" class="form-control" name="stock" min="1" placeholder="Stock"
                     value="{{ old('stock') }}">
             </div>
-            {{-- Price --}}
+            {{-- Point --}}
             <div class="mb-3">
-                <label for="price" class="form-label">Price :</label>
-                <input type="number" id="price" class="form-control" name="price" min="1" placeholder="Price"
-                    value="{{ old('price') }}">
-            </div>
-            {{-- Profit --}}
-            <div class="mb-3">
-                <label for="profit" class="form-label">Profit :</label>
-                <input type="number" id="profit" class="form-control" name="profit" min="1" placeholder="Profit"
-                    value="{{ old('profit') }}">
-            </div>
-            <div class="mb-3">
-                <label for="profit" class="form-label">Point For Member :</label>
-                <input type="number" id="member_point" class="form-control" name="member_point" min="1" placeholder="member_point"
-                    value="{{ old('member_point') }}">
+                <label for="point" class="form-label">Point :</label>
+                <input type="number" id="point" class="form-control" name="point" min="1" placeholder="point"
+                    value="{{ old('point') }}">
             </div>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>

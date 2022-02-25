@@ -8,13 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">Product List</a>
+                    <a class="nav-link {{ Request::is('admin*') ? 'active' : '' }}" href="/admin">Product List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/transaction">Transaction List</a>
+                    <a class="nav-link {{ Request::is('member_admin*') ? 'active' : '' }}" href="/member_admin">Member Product List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/report">Report</a>
+                    <a class="nav-link {{ Request::is('transaction*') ? 'active' : '' }}" href="/transaction">Transaction List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('report*') ? 'active' : '' }}" href="/report">Report</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('restock*') ? 'active' : '' }}" href="/restock">Restock</a>
                 </li>
             </ul>
             <div class="d-flex">

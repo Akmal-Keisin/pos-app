@@ -55,7 +55,8 @@ class ProductAdminController extends Controller
             'product_description' => 'required',
             'stock' => 'required|integer',
             'price' => 'required|integer',
-            'profit' => 'required|integer'
+            'profit' => 'required|integer',
+            'member_point' => 'required|integer',
         ]);
 
         if ($image = $request->file('image')) {
@@ -146,6 +147,6 @@ class ProductAdminController extends Controller
         $product = Product::findOrFail($admin);
         Storage::delete($product->image);
         $product->delete();
-        return redirect('/admin');
+        return redirect('/admin')->with('success', 'Product deleted successfully');
     }
 }

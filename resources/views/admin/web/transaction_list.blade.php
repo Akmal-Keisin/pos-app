@@ -14,6 +14,7 @@
                 <th scope="col">Profit</th>
                 <th scope="col">Address</th>
                 <th scope="col">Date</th>
+                <th scope="col">Detail</th>
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -25,6 +26,7 @@
                 <td>{{ $transaction->profit}}</td>
                 <td>{{ $transaction->address  }}</td>
                 <td>{{ $transaction->created_at  }}</td>
+                <td><a href="/transaction/{{ $transaction->id }}" class="btn btn-primary">See Detail</a></td>
             </tr>
             @endforeach
         </tbody>

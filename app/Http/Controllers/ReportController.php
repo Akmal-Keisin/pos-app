@@ -34,10 +34,11 @@ class ReportController extends Controller
             $modal_total += $modal_data->cost;
         }
 
-
         return view('admin.web.report', [
             'income' => $income,
             'modal' => $modal_total,
+            'transactions' => $transactions,
+            'modals' => $modals
         ]);
     }
 }

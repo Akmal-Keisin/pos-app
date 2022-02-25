@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+
 
 class MainController extends Controller
 {
@@ -18,8 +20,10 @@ class MainController extends Controller
     }
 
     public function show(Product $product) {
+        $money = Auth::user()->money;
         return view('main.web.product_detail', [
-            'product' => $product
+            'product' => $product,
+            'money' => $money
         ]);
     }
 }

@@ -6,9 +6,14 @@ use App\Http\Controllers\ProductAdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MemberAdminController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberExchangeController;
+use App\Http\Controllers\MemberRegistrationController;
 use App\Http\Controllers\MoneyController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RestockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +66,30 @@ Route::post('/money', [MoneyController::class, 'store']);
 
 // Transaction
 Route::get('/transaction', [TransactionController::class, 'index']);
+Route::get('/transaction/{transaction}', [TransactionController::class, 'show']);
 Route::post('/checkout', [TransactionController::class, 'store']);
 
 // Report
 Route::get('/report', [ReportController::class, 'index']);
+
+// Member
+Route::get('/member', [MemberController::class, 'index']);
+Route::get('/member/{member}', [MemberController::class, 'show']);
+Route::get('/member-registration', [MemberRegistrationController::class, 'index']);
+Route::post('/member-registration', [MemberRegistrationController::class, 'store']);
+
+// Member Admin
+Route::get('/member_admin', [MemberAdminController::class, 'index']);
+Route::get('/member_admin/create', [MemberAdminController::class, 'create']);
+Route::post('/member_admin', [MemberAdminController::class, 'store']);
+Route::get('/member_admin/{member_admin}/edit', [MemberAdminController::class, 'edit']);
+Route::put('/member_admin/{member_admin}', [MemberAdminController::class, 'update']);
+Route::delete('/member_admin/{member_admin}', [MemberAdminController::class, 'destroy']);
+
+// Exchange
+Route::get('/exchange', [MemberExchangeController::class, 'index']);
+Route::post('/exchange',  [MemberExchangeController::class, 'store']);
+
+// Restock
+Route::get('/restock', [RestockController::class, 'index']);
+Route::post('/restock/{restock}', [RestockController::class, 'store']);
