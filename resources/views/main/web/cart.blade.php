@@ -54,7 +54,7 @@
                             <form action="/cart/{{ $cart['row_id'] }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button id="checkout" type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -64,6 +64,8 @@
             </table>
         </div>
         <div class="col-md-4">
+            <form action="/checkout" method="POST">
+                @csrf
             <div class="ms-4">
                 <h2 class="">Cost Total :</h2>
                 <h2 class="fw-light">Rp. @convert($cost_total)</h2>
@@ -73,12 +75,15 @@
                 <h5 class="fw-light">{{ Auth::user()->address }}</h5>
             </div>
             <div class="ms-4 mt-3">
-                <form action="/checkout" method="POST">
-                    @csrf
-                    <button class="btn btn-primary">Checkout</button>
-                </form>
+                <h2>Coupon Discount :</h2>
+                <input type="text" name="coupon" class="form-control">
             </div>
+            <div class="ms-4 mt-3">
+                    <button class="btn btn-primary">Checkout</button>
+            </div>
+            </form>
         </div>
     </div>
 </div>
+
 @endsection

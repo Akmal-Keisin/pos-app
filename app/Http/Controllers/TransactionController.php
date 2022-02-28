@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Member;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Discount;
+use Illuminate\Support\Facades\Session;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -24,7 +26,12 @@ class TransactionController extends Controller
     }
 
     public function store(Request $request) {
-        if(isEmpty($request->session('cart') == false)) {
+        if(session('cart')) {
+            $discount = 0;
+            if(Discount::where('coupon', '=', $request->coupon)->exists()) {
+                $discount = Discount::where('coupon', '=', $request->coupon)->first();
+                $discount = $discount->value;
+            }
             $total_cost = 0;
             $profit = 0;
             $point = 0;
@@ -37,7 +44,8 @@ class TransactionController extends Controller
                 $profit += $product->profit * $data['qty'];
                 $point += $product->member_point * $data['qty'];
             }
-
+            $discount = $total_cost * $discount/100;
+            $total_cost = $total_cost - $discount;
             if(Auth::user()->money < $total_cost) {
                 return back()->with('failed', 'Your money is not enough for the transaction');
             }
@@ -53,7 +61,7 @@ class TransactionController extends Controller
                 'user_id' => Auth::user()->id,
                 'total_cost' => $total_cost,
                 'address' => Auth::user()->address,
-                'profit' => $profit
+                'profit' => $profit,
             ];
             Transaction::create($transaction);
 
@@ -82,21 +90,29 @@ class TransactionController extends Controller
 
             $orders = Order::where('transaction_id', '=', $transaction_id)->get();
             $transactions = Transaction::where('id', '=', $transaction_id)->first();
-            $pdf = PDF::loadView('main.web.receipt',[
+
+            session()->forget('cart');
+            $data = [
                 'orders' => $orders,
                 'transactions' => $transactions,
-                'date' => Carbon::today()->toFormattedDateString()
+                'date' => Carbon::today()->toFormattedDateString(),
+                'discount' => $discount
+            ];
+            Session::put('data', $data);
+            return view('main.web.print_receipt', [
+                'orders' => $orders,
+                'transactions' => $transactions,
+                'date' => Carbon::today()->toFormattedDateString(),
+                'discount' => $discount
             ]);
-            session()->forget('cart');
-            return $pdf->download();
-            // return view('main.web.receipt', [
-            //     'orders' => $orders,
-            //     'transactions' => $transactions,
-            //     'date' => Carbon::today()->toFormattedDateString()
-            // ]);
+        } else {
+            return back()->with('failed', 'Your cart is empty');
         }
+    }
 
-
+    public function print(Request $request) {
+        $pdf = PDF::loadView('main.web.receipt', Session::get('data'));
+        return $pdf->download();
     }
 
     public function show($transaction) {

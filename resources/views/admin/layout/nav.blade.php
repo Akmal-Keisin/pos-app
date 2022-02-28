@@ -14,6 +14,9 @@
                     <a class="nav-link {{ Request::is('member_admin*') ? 'active' : '' }}" href="/member_admin">Member Product List</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('member_exchange*') ? 'active' : '' }}" href="/member_exchange">Member Exchange List</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('transaction*') ? 'active' : '' }}" href="/transaction">Transaction List</a>
                 </li>
                 <li class="nav-item">
@@ -21,6 +24,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('restock*') ? 'active' : '' }}" href="/restock">Restock</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('discount*') ? 'active' : '' }}" href="/discount">Discount</a>
                 </li>
             </ul>
             <div class="d-flex">

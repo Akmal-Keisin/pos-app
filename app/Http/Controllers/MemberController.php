@@ -16,6 +16,10 @@ class MemberController extends Controller
         }
         $member = Member::where('user_id', '=', Auth::user()->id)->first();
         $products = MemberProduct::all();
+        $products = MemberProduct::all();
+        if (request('search')) {
+            $products = MemberProduct::where('product_name', 'like' , '%' .  request('search') . '%')->get();
+        }
         return view('main.web.member', [
             'check_member' => $check_member,
             'products' => $products,

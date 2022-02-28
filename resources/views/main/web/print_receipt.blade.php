@@ -341,7 +341,15 @@
                 </div>
             </td>
             <td>
-
+                <form action="/print" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{ $orders }}" name="orders">
+                    <input type="hidden" value="{{ $transactions }}" name="transactions">
+                    <input type="hidden" value="{{ $date }}" name="date">
+                    <input type="hidden" value="{{ $discount }}" name="discount">
+                    <button class="btn btn-primary">Print</button>
+                </form>
+                <a href="/cart">Go Back</a>
             </td>
         </tr>
         </tbody>

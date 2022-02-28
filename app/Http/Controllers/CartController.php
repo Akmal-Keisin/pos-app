@@ -12,9 +12,8 @@ class CartController extends Controller
     // Index Cart
     public function index() {
         // Get all session data
-        // session()->forget('cart');
+        session()->forget('data');
         $carts = session()->get('cart');
-        // dd($carts);
         // Checking if there is carts in the session
         if($carts) {
             // Setting the cost total

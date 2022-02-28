@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MemberExchange;
 use App\Models\MemberProduct;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class MemberExchangeController extends Controller
 {
