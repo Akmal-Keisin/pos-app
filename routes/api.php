@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartApiController;
 use App\Http\Controllers\ProductApiController;
+use App\Http\Controllers\TransactionApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,4 @@ Route::get('/cart/{id}', [CartApiController::class, 'show']);
 Route::delete('/cart/{id}', [CartApiController::class, 'destroy']);
 
 // Transaction
+Route::post('/transaction', [TransactionApiController::class, 'store']);

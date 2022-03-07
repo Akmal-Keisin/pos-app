@@ -71,9 +71,9 @@ class CartApiController extends Controller
 
         $formData = $request->all();
         $product = Product::findOrFail($request->product_id);
-        if ($product->qty < $request->qty) {
+        if ($product->stock < $request->qty) {
             $data = [
-                'info' => 'Stock is not enough for this product',
+                'info' => $product->name . ' stock is not enough',
                 'status' => Response::HTTP_BAD_REQUEST
             ];
             return response()->json($data, Response::HTTP_BAD_REQUEST);
@@ -155,7 +155,7 @@ class CartApiController extends Controller
         $product = Product::findOrFail($cart->product_id);
         if ($request->qty > $product->stock) {
             $data = [
-                'info' => 'Product stock is not enough',
+                'info' => $product->name . ' stock is not enough',
                 'status' => Response::HTTP_BAD_REQUEST
             ];
             return response()->json($data, Response::HTTP_BAD_REQUEST);
